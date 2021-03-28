@@ -1,7 +1,8 @@
 ##########
 # Win10 Initial Setup Script
+# Author: DubProdigy
 # Author: Disassembler <disassembler@dasm.cz>
-# Version: 1.4, 2016-01-16
+# Version: 1.5, 2021-03-28
 ##########
 
 # Ask for elevated permissions if required
@@ -163,8 +164,8 @@ Set-Service "DiagTrack" -StartupType Disabled
 # Set-NetFirewallProfile -Profile * -Enabled True
 
 # Disable Windows Defender
-# Write-Host "Disabling Windows Defender..."
-# Set-ItemProperty -Path "HKLM:\Software\Policies\Microsoft\Windows Defender" -Name "DisableAntiSpyware" -Type DWord -Value 1
+Write-Host "Disabling Windows Defender..."
+Set-ItemProperty -Path "HKLM:\Software\Policies\Microsoft\Windows Defender" -Name "DisableAntiSpyware" -Type DWord -Value 1
 
 # Enable Windows Defender
 # Remove-ItemProperty -Path "HKLM:\Software\Policies\Microsoft\Windows Defender" -Name "DisableAntiSpyware"
@@ -401,28 +402,28 @@ Set-ItemProperty -Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\OneDrive" -Nam
 # Remove-ItemProperty -Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\OneDrive" -Name "DisableFileSyncNGSC"
 
 # Uninstall OneDrive (WINDOWS WILL NOT SYSPREP WITHOUT IT!)
-# Write-Host "Uninstalling OneDrive..."
-# Stop-Process -Name OneDrive -ErrorAction SilentlyContinue
-# Start-Sleep -s 3
-# $onedrive = "$env:SYSTEMROOT\SysWOW64\OneDriveSetup.exe"
-# If (!(Test-Path $onedrive)) {
-# 	$onedrive = "$env:SYSTEMROOT\System32\OneDriveSetup.exe"
-# }
-# Start-Process $onedrive "/uninstall" -NoNewWindow -Wait
-# Start-Sleep -s 3
-# Stop-Process -Name explorer -ErrorAction SilentlyContinue
-# Start-Sleep -s 3
-# Remove-Item "$env:USERPROFILE\OneDrive" -Force -Recurse -ErrorAction SilentlyContinue
-# Remove-Item "$env:LOCALAPPDATA\Microsoft\OneDrive" -Force -Recurse -ErrorAction SilentlyContinue
-# Remove-Item "$env:PROGRAMDATA\Microsoft OneDrive" -Force -Recurse -ErrorAction SilentlyContinue
-# If (Test-Path "$env:SYSTEMDRIVE\OneDriveTemp") {
-# 	Remove-Item "$env:SYSTEMDRIVE\OneDriveTemp" -Force -Recurse -ErrorAction SilentlyContinue
-# }
-# If (!(Test-Path "HKCR:")) {
-# 	New-PSDrive -Name HKCR -PSProvider Registry -Root HKEY_CLASSES_ROOT | Out-Null
-# }
-# Remove-Item -Path "HKCR:\CLSID\{018D5C66-4533-4307-9B53-224DE2ED1FE6}" -Recurse -ErrorAction SilentlyContinue
-# Remove-Item -Path "HKCR:\Wow6432Node\CLSID\{018D5C66-4533-4307-9B53-224DE2ED1FE6}" -Recurse -ErrorAction SilentlyContinue
+Write-Host "Uninstalling OneDrive..."
+Stop-Process -Name OneDrive -ErrorAction SilentlyContinue
+Start-Sleep -s 3
+$onedrive = "$env:SYSTEMROOT\SysWOW64\OneDriveSetup.exe"
+If (!(Test-Path $onedrive)) {
+	$onedrive = "$env:SYSTEMROOT\System32\OneDriveSetup.exe"
+}
+Start-Process $onedrive "/uninstall" -NoNewWindow -Wait
+Start-Sleep -s 3
+Stop-Process -Name explorer -ErrorAction SilentlyContinue
+Start-Sleep -s 3
+Remove-Item "$env:USERPROFILE\OneDrive" -Force -Recurse -ErrorAction SilentlyContinue
+Remove-Item "$env:LOCALAPPDATA\Microsoft\OneDrive" -Force -Recurse -ErrorAction SilentlyContinue
+Remove-Item "$env:PROGRAMDATA\Microsoft OneDrive" -Force -Recurse -ErrorAction SilentlyContinue
+If (Test-Path "$env:SYSTEMDRIVE\OneDriveTemp") {
+	Remove-Item "$env:SYSTEMDRIVE\OneDriveTemp" -Force -Recurse -ErrorAction SilentlyContinue
+}
+If (!(Test-Path "HKCR:")) {
+	New-PSDrive -Name HKCR -PSProvider Registry -Root HKEY_CLASSES_ROOT | Out-Null
+}
+Remove-Item -Path "HKCR:\CLSID\{018D5C66-4533-4307-9B53-224DE2ED1FE6}" -Recurse -ErrorAction SilentlyContinue
+Remove-Item -Path "HKCR:\Wow6432Node\CLSID\{018D5C66-4533-4307-9B53-224DE2ED1FE6}" -Recurse -ErrorAction SilentlyContinue
 
 # Install OneDrive
 # $onedrive = "$env:SYSTEMROOT\SysWOW64\OneDriveSetup.exe"
@@ -444,16 +445,16 @@ Get-AppxPackage "Microsoft.MicrosoftSolitaireCollection" | Remove-AppxPackage
 Get-AppxPackage "Microsoft.Office.OneNote" | Remove-AppxPackage
 Get-AppxPackage "Microsoft.People" | Remove-AppxPackage
 Get-AppxPackage "Microsoft.SkypeApp" | Remove-AppxPackage
-# Get-AppxPackage "Microsoft.Windows.Photos" | Remove-AppxPackage
-# Get-AppxPackage "Microsoft.WindowsAlarms" | Remove-AppxPackage
+Get-AppxPackage "Microsoft.Windows.Photos" | Remove-AppxPackage
+Get-AppxPackage "Microsoft.WindowsAlarms" | Remove-AppxPackage
 Get-AppxPackage "Microsoft.WindowsCamera" | Remove-AppxPackage
 Get-AppxPackage "microsoft.windowscommunicationsapps" | Remove-AppxPackage
 Get-AppxPackage "Microsoft.WindowsMaps" | Remove-AppxPackage
 Get-AppxPackage "Microsoft.WindowsPhone" | Remove-AppxPackage
 Get-AppxPackage "Microsoft.WindowsSoundRecorder" | Remove-AppxPackage
 Get-AppxPackage "Microsoft.XboxApp" | Remove-AppxPackage
-# Get-AppxPackage "Microsoft.ZuneMusic" | Remove-AppxPackage
-# Get-AppxPackage "Microsoft.ZuneVideo" | Remove-AppxPackage
+Get-AppxPackage "Microsoft.ZuneMusic" | Remove-AppxPackage
+Get-AppxPackage "Microsoft.ZuneVideo" | Remove-AppxPackage
 Get-AppxPackage "Microsoft.AppConnector" | Remove-AppxPackage
 Get-AppxPackage "Microsoft.ConnectivityStore" | Remove-AppxPackage
 Get-AppxPackage "Microsoft.Office.Sway" | Remove-AppxPackage
@@ -463,7 +464,7 @@ Get-AppxPackage "9E2F88E3.Twitter" | Remove-AppxPackage
 Get-AppxPackage "king.com.CandyCrushSodaSaga" | Remove-AppxPackage
 Get-AppxPackage "Microsoft.WindowsFeedbackHub" | Remove-AppxPackage
 Get-AppxPackage "Microsoft.Wallet" | Remove-AppxPackage
-# Get-AppxPackage "Microsoft.ScreenSketch" | Remove-AppxPackage
+Get-AppxPackage "Microsoft.ScreenSketch" | Remove-AppxPackage
 Get-AppxPackage "Microsoft.GetHelp" | Remove-AppxPackage
 Get-AppxPackage "Microsoft.Xbox.TCUI" | Remove-AppxPackage
 Get-AppxPackage "Microsoft.XboxGameOverlay" | Remove-AppxPackage
@@ -507,8 +508,8 @@ Get-AppBackgroundTask "Microsoft.XboxIdentityProvider" | Remove-AppPackage
 # Remove-Item -Path C:\Mnt -Recurse
 
 # Uninstall Windows Media Player
-# Write-Host "Uninstalling Windows Media Player..."
-# dism /online /Disable-Feature /FeatureName:MediaPlayback /Quiet /NoRestart
+Write-Host "Uninstalling Windows Media Player..."
+dism /online /Disable-Feature /FeatureName:MediaPlayback /Quiet /NoRestart
 
 # Install Windows Media Player
 # dism /online /Enable-Feature /FeatureName:MediaPlayback /Quiet /NoRestart
@@ -572,14 +573,14 @@ $services = @(
     "MapsBroker"                               # Downloaded Maps Manager
     "NetTcpPortSharing"                        # Net.Tcp Port Sharing Service
     "RemoteAccess"                             # Routing and Remote Access
-    # "RemoteRegistry"                         # Remote Registry
+    "RemoteRegistry"                         # Remote Registry
     "SharedAccess"                             # Internet Connection Sharing (ICS)
     "TrkWks"                                   # Distributed Link Tracking Client
-    # "WbioSrvc"                               # Windows Biometric Service (required for Fingerprint reader / facial detection)
-    #"WlanSvc"                                 # WLAN AutoConfig
+    "WbioSrvc"                               # Windows Biometric Service (required for Fingerprint reader / facial detection)
+    "WlanSvc"                                 # WLAN AutoConfig
     "WMPNetworkSvc"                            # Windows Media Player Network Sharing Service
     #"wscsvc"                                  # Windows Security Center Service
-    #"WSearch"                                 # Windows Search
+    "WSearch"                                 # Windows Search
     "XblAuthManager"                           # Xbox Live Auth Manager
     "XblGameSave"                              # Xbox Live Game Save Service
     "XboxNetApiSvc"                            # Xbox Live Networking Service
@@ -654,7 +655,7 @@ $apps = @(
     "Microsoft.MixedReality.Portal"
     "Microsoft.MicrosoftPowerBIForWindows"
     "Microsoft.MicrosoftSolitaireCollection"
-    #"Microsoft.MicrosoftStickyNotes"
+    "Microsoft.MicrosoftStickyNotes"
     "Microsoft.MinecraftUWP"
     "Microsoft.NetworkSpeedTest"
     "Microsoft.Office.OneNote"
@@ -662,15 +663,15 @@ $apps = @(
     "Microsoft.Print3D"
     "Microsoft.SkypeApp"
     "Microsoft.Wallet"
-    # "Microsoft.Windows.Photos"
-    # "Microsoft.WindowsAlarms"
-    # "Microsoft.WindowsCalculator"
+    "Microsoft.Windows.Photos"
+    "Microsoft.WindowsAlarms"
+    "Microsoft.WindowsCalculator"
     "Microsoft.WindowsCamera"
     "microsoft.windowscommunicationsapps"
     "Microsoft.WindowsMaps"
     "Microsoft.WindowsPhone"
     "Microsoft.WindowsSoundRecorder"
-    #"Microsoft.WindowsStore"   # can't be re-installed
+    "Microsoft.WindowsStore"   # can't be re-installed
     "Microsoft.Xbox.TCUI"
     "Microsoft.XboxApp"
     "Microsoft.XboxGameOverlay"
@@ -696,7 +697,7 @@ $apps = @(
 
     # Creators Update apps
     "Microsoft.Microsoft3DViewer"
-    #"Microsoft.MSPaint"
+    "Microsoft.MSPaint"
 
     #Redstone apps
     "Microsoft.BingFoodAndDrink"
