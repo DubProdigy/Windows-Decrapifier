@@ -115,7 +115,3 @@ By default this script has options enabled for a normal user.
     .\decrapify.ps1
     ```
 *Note : Make sure to enable/disable the features you don't need by commenting/uncommenting them out.*
-#### Credits :
-[@Disassembler0]( https://github.com/Disassembler0 ).
-[Craft Computing]( https://www.youtube.com/channel/UCp3yVOm6A55nx65STpm3tXQ ).
-Windows Debloat Video URL : https://www.youtube.com/watch?v=PdKMiFKGQuc <br>
